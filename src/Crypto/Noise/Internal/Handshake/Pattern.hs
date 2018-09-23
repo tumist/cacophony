@@ -94,6 +94,8 @@ handshakePattern protoName ms = HandshakePattern protoName hasPSK ms
     scanP (Psk _) = HasPSK True
     scanP _       = mempty
 
+instance Semigroup HasPSK where
+  (HasPSK a) <> (HasPSK b) = HasPSK $ a || b
+
 instance Monoid HasPSK where
   mempty = HasPSK False
-  (HasPSK a) `mappend` (HasPSK b) = HasPSK $ a || b
